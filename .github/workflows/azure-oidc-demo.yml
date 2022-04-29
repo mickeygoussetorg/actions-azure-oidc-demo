@@ -1,0 +1,35 @@
+name: Azure OIDC Demo
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  
+
+jobs:
+
+  dev-job:
+    name: Deploy to DEV
+    
+    runs-on: ubuntu-latest
+    
+    environment:
+      name: DEV
+
+    steps:
+      
+      - uses: actions/checkout@v3
+
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription_id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          
+      - name: Run AZ Commands
+        run: |
+          az account show
+          az group list
+          pwd
