@@ -33,3 +33,28 @@ jobs:
           az account show
           az group list
           pwd
+          
+  qa-job:
+    name: Deploy to QA
+    
+    runs-on: ubuntu-latest
+    
+    environment:
+      name: QA
+
+    steps:
+      
+      - uses: actions/checkout@v3
+
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          
+      - name: Run AZ Commands
+        run: |
+          az account show
+          az group list
+          pwd
