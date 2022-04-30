@@ -58,3 +58,28 @@ jobs:
           az account show
           az group list
           pwd
+
+  breaking-job:
+    name: Breaking Job
+    
+    runs-on: ubuntu-latest
+    
+    environment:
+      name: DEV
+
+    steps:
+      
+      - uses: actions/checkout@v3
+
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          client-id: e7b502c8-cd7f-4d71-a2c6-6aeeba3fc37f
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          
+      - name: Run AZ Commands
+        run: |
+          az account show
+          az group list
+          pwd
