@@ -1,0 +1,33 @@
+name: Azure QA2 Demo
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  
+
+jobs:
+
+  qa2:
+    name: qa2
+    
+    runs-on: ubuntu-latest
+    
+    steps:
+      
+      - uses: actions/checkout@v3
+
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          client-id: b489ada8-4d09-4f83-9ed1-c0f8def60ebf
+          tenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
+          subscription-id: b5ae5280-5ede-4fbc-bd69-c1e4cb9616c2
+          
+      - name: Run AZ Commands
+        run: |
+          az account show
+          az group list
+          pwd
+          
